@@ -18,14 +18,27 @@ songs = pd.read_csv('C:/Users/Hydra18/Desktop/텍스트이해와인공지능/Pro
 
 
 # 번역한 CSV파일 저장하기
-with open('C:/Users/Hydra18/Desktop/텍스트이해와인공지능/Project/Dataset/Translation/translated.csv', 'w',  newline = '', encoding = 'utf-8-sig') as file: # <--- !! 경로 주위 !! 각 컴퓨터별 경로가 다름
+with open('C:/Users/Hydra18/Desktop/텍스트이해와인공지능/Project/Dataset/Translation/Translated.csv', 'w',  newline = '', encoding = 'utf-8-sig') as file: # <--- !! 경로 주위 !! 각 컴퓨터별 경로가 다름
     csvfile = csv.writer(file)
     for i in range(len(songs)):
+        temp_list = []
+        
+        title = ''
+        title = songs['title'][i]
+        
+        artist = ''
+        artist = songs['artist'][i]
     
-        srcText = ''
-        srcText = songs['Lyrics'][i]
+        lyrics = ''
+        lyrics = songs['lyric'][i]
+        
+        genre = ''
+        genre = songs['genre'][i]
+        
+        translate = ''
+        translate = songs['lyric'][i]
 
-        encText = urllib.parse.quote(srcText)
+        encText = urllib.parse.quote(translate)
         data = "source=ko&target=en&text=" + encText
         url = "https://openapi.naver.com/v1/papago/n2mt"
         request = urllib.request.Request(url)
@@ -39,7 +52,11 @@ with open('C:/Users/Hydra18/Desktop/텍스트이해와인공지능/Project/Datas
             res = json.loads(response_body.decode('utf-8'))
 
             # 각 가사별 행마다 기록
-            csvfile.writerow([res['message']['result']['translatedText']])
+            temp_list.append([title, artist, lyrics, genre, res['message']['result']['translatedText']])
+            
+            for row in temp_list:
+                csvfile.writerow(row)
 
         else:
             print("Error Code:" + rescode)
+            print("Not able to translate song:" + title)
