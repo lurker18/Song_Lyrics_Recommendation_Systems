@@ -13,7 +13,7 @@ from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 import time
 
-songs = pd.read_csv('C:/Users/Hydra18/Desktop/텍스트이해와인공지능/Project/Dataset/Preprocessed/Pop_Songs_Lyrics_Prepro.csv', encoding = 'utf-8')
+songs = pd.read_csv('C:/Users/Hydra18/Desktop/텍스트이해와인공지능/Project/Dataset/Preprocessed/Pop_Songs_Lyrics_Prepro.csv', encoding = 'utf-8-sig')
 songs.head()
 
 option = Options()
@@ -73,6 +73,8 @@ def LyricsTranslator():
     
             for row in temp_list:
                 csvfile.writerow(row)
+            
+            print("Index:" + i + title + " - " + artist)
                 
 
 LyricsTranslator()
