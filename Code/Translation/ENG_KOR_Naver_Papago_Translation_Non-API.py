@@ -74,7 +74,7 @@ def LyricsTranslator():
             for row in temp_list:
                 csvfile.writerow(row)
             
-            print("Index:" + i + title + " - " + artist)
+            print("Index:" + str(i) + " => " + title + " - " + artist)
                 
 
 LyricsTranslator()
